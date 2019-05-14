@@ -38,10 +38,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.apache.dubbo.common.constants.ClusterConstants.CLUSTER_STICKY_KEY;
 import static org.apache.dubbo.common.constants.CommonConstants.COMMA_SPLIT_PATTERN;
 import static org.apache.dubbo.common.constants.CommonConstants.INTERFACE_KEY;
 import static org.apache.dubbo.common.constants.CommonConstants.METHODS_KEY;
 import static org.apache.dubbo.common.constants.CommonConstants.TIMEOUT_KEY;
+import static org.apache.dubbo.common.constants.RegistryConstants.CONSUMER_PROTOCOL;
+import static org.apache.dubbo.common.constants.RpcConstants.CALLBACK_INSTANCES_LIMIT_KEY;
 
 /**
  * DubboRegistryFactory
@@ -58,11 +61,11 @@ public class DubboRegistryFactory extends AbstractRegistryFactory {
                 .setPath(RegistryService.class.getName())
                 .removeParameter(Constants.EXPORT_KEY).removeParameter(Constants.REFER_KEY)
                 .addParameter(INTERFACE_KEY, RegistryService.class.getName())
-                .addParameter(Constants.CLUSTER_STICKY_KEY, "true")
+                .addParameter(CLUSTER_STICKY_KEY, "true")
                 .addParameter(Constants.LAZY_CONNECT_KEY, "true")
                 .addParameter(RemotingConstants.RECONNECT_KEY, "false")
                 .addParameterIfAbsent(TIMEOUT_KEY, "10000")
-                .addParameterIfAbsent(Constants.CALLBACK_INSTANCES_LIMIT_KEY, "10000")
+                .addParameterIfAbsent(CALLBACK_INSTANCES_LIMIT_KEY, "10000")
                 .addParameterIfAbsent(RemotingConstants.CONNECT_TIMEOUT_KEY, "10000")
                 .addParameter(METHODS_KEY, StringUtils.join(new HashSet<>(Arrays.asList(Wrapper.getWrapper(RegistryService.class).getDeclaredMethodNames())), ","))
                 //.addParameter(Constants.STUB_KEY, RegistryServiceStub.class.getName())
@@ -105,7 +108,7 @@ public class DubboRegistryFactory extends AbstractRegistryFactory {
         directory.setProtocol(protocol);
         directory.setRouterChain(RouterChain.buildChain(url));
         directory.notify(urls);
-        directory.subscribe(new URL(Constants.CONSUMER_PROTOCOL, NetUtils.getLocalHost(), 0, RegistryService.class.getName(), url.getParameters()));
+        directory.subscribe(new URL(CONSUMER_PROTOCOL, NetUtils.getLocalHost(), 0, RegistryService.class.getName(), url.getParameters()));
         return registry;
     }
 }

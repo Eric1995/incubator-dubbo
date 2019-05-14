@@ -54,6 +54,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.apache.dubbo.common.config.ConfigurationUtils.parseProperties;
+import static org.apache.dubbo.common.constants.ClusterConstants.TAG_KEY;
 import static org.apache.dubbo.common.constants.CommonConstants.ANYHOST_VALUE;
 import static org.apache.dubbo.common.constants.CommonConstants.COMMA_SEPARATOR;
 import static org.apache.dubbo.common.constants.CommonConstants.COMMA_SPLIT_PATTERN;
@@ -64,6 +65,18 @@ import static org.apache.dubbo.common.constants.CommonConstants.PID_KEY;
 import static org.apache.dubbo.common.constants.CommonConstants.PROTOCOL_KEY;
 import static org.apache.dubbo.common.constants.CommonConstants.RELEASE_KEY;
 import static org.apache.dubbo.common.constants.CommonConstants.TIMESTAMP_KEY;
+import static org.apache.dubbo.common.constants.MonitorConstants.LOGSTAT_PROTOCOL;
+import static org.apache.dubbo.common.constants.RegistryConstants.REGISTER_KEY;
+import static org.apache.dubbo.common.constants.RegistryConstants.REGISTRY_KEY;
+import static org.apache.dubbo.common.constants.RegistryConstants.REGISTRY_PROTOCOL;
+import static org.apache.dubbo.common.constants.RegistryConstants.SUBSCRIBE_KEY;
+import static org.apache.dubbo.common.constants.RpcConstants.DUBBO_VERSION_KEY;
+import static org.apache.dubbo.common.constants.RpcConstants.INVOKER_LISTENER_KEY;
+import static org.apache.dubbo.common.constants.RpcConstants.LOCAL_KEY;
+import static org.apache.dubbo.common.constants.RpcConstants.PROXY_KEY;
+import static org.apache.dubbo.common.constants.RpcConstants.REFERENCE_FILTER_KEY;
+import static org.apache.dubbo.common.constants.RpcConstants.RETURN_PREFIX;
+import static org.apache.dubbo.common.constants.RpcConstants.THROW_PREFIX;
 import static org.apache.dubbo.common.extension.ExtensionLoader.getExtensionLoader;
 
 /**
@@ -323,11 +336,11 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
 
                     for (URL url : urls) {
                         url = URLBuilder.from(url)
-                                .addParameter(Constants.REGISTRY_KEY, url.getProtocol())
-                                .setProtocol(Constants.REGISTRY_PROTOCOL)
+                                .addParameter(REGISTRY_KEY, url.getProtocol())
+                                .setProtocol(REGISTRY_PROTOCOL)
                                 .build();
-                        if ((provider && url.getParameter(Constants.REGISTER_KEY, true))
-                                || (!provider && url.getParameter(Constants.SUBSCRIBE_KEY, true))) {
+                        if ((provider && url.getParameter(REGISTER_KEY, true))
+                                || (!provider && url.getParameter(SUBSCRIBE_KEY, true))) {
                             registryList.add(url);
                         }
                     }
@@ -367,17 +380,17 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         }
         if (ConfigUtils.isNotEmpty(address)) {
             if (!map.containsKey(PROTOCOL_KEY)) {
-                if (getExtensionLoader(MonitorFactory.class).hasExtension(Constants.LOGSTAT_PROTOCOL)) {
-                    map.put(PROTOCOL_KEY, Constants.LOGSTAT_PROTOCOL);
+                if (getExtensionLoader(MonitorFactory.class).hasExtension(LOGSTAT_PROTOCOL)) {
+                    map.put(PROTOCOL_KEY, LOGSTAT_PROTOCOL);
                 } else {
                     map.put(PROTOCOL_KEY, Constants.DUBBO_PROTOCOL);
                 }
             }
             return UrlUtils.parseURL(address, map);
-        } else if (Constants.REGISTRY_PROTOCOL.equals(monitor.getProtocol()) && registryURL != null) {
+        } else if (REGISTRY_PROTOCOL.equals(monitor.getProtocol()) && registryURL != null) {
             return URLBuilder.from(registryURL)
                     .setProtocol(Constants.DUBBO_PROTOCOL)
-                    .addParameter(PROTOCOL_KEY, Constants.REGISTRY_PROTOCOL)
+                    .addParameter(PROTOCOL_KEY, REGISTRY_PROTOCOL)
                     .addParameterAndEncoded(Constants.REFER_KEY, StringUtils.toQueryString(map))
                     .build();
         }
@@ -385,7 +398,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     }
 
     static void appendRuntimeParameters(Map<String, String> map) {
-        map.put(Constants.DUBBO_VERSION_KEY, Version.getProtocolVersion());
+        map.put(DUBBO_VERSION_KEY, Version.getProtocolVersion());
         map.put(RELEASE_KEY, Version.getVersion());
         map.put(TIMESTAMP_KEY, String.valueOf(System.currentTimeMillis()));
         if (ConfigUtils.getPid() > 0) {
@@ -461,8 +474,8 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         }
 
         String normalizedMock = MockInvoker.normalizeMock(mock);
-        if (normalizedMock.startsWith(Constants.RETURN_PREFIX)) {
-            normalizedMock = normalizedMock.substring(Constants.RETURN_PREFIX.length()).trim();
+        if (normalizedMock.startsWith(RETURN_PREFIX)) {
+            normalizedMock = normalizedMock.substring(RETURN_PREFIX.length()).trim();
             try {
                 //Check whether the mock value is legal, if it is illegal, throw exception
                 MockInvoker.parseMockValue(normalizedMock);
@@ -470,8 +483,8 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
                 throw new IllegalStateException("Illegal mock return in <dubbo:service/reference ... " +
                         "mock=\"" + mock + "\" />");
             }
-        } else if (normalizedMock.startsWith(Constants.THROW_PREFIX)) {
-            normalizedMock = normalizedMock.substring(Constants.THROW_PREFIX.length()).trim();
+        } else if (normalizedMock.startsWith(THROW_PREFIX)) {
+            normalizedMock = normalizedMock.substring(THROW_PREFIX.length()).trim();
             if (ConfigUtils.isNotEmpty(normalizedMock)) {
                 try {
                     //Check whether the mock value is legal
@@ -635,7 +648,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
      */
     @Deprecated
     public void setLocal(String local) {
-        checkName(Constants.LOCAL_KEY, local);
+        checkName(LOCAL_KEY, local);
         this.local = local;
     }
 
@@ -670,7 +683,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
     }
 
     public void setProxy(String proxy) {
-        checkExtension(ProxyFactory.class, Constants.PROXY_KEY, proxy);
+        checkExtension(ProxyFactory.class, PROXY_KEY, proxy);
         this.proxy = proxy;
     }
 
@@ -682,7 +695,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         this.connections = connections;
     }
 
-    @Parameter(key = Constants.REFERENCE_FILTER_KEY, append = true)
+    @Parameter(key = REFERENCE_FILTER_KEY, append = true)
     public String getFilter() {
         return filter;
     }
@@ -692,7 +705,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         this.filter = filter;
     }
 
-    @Parameter(key = Constants.INVOKER_LISTENER_KEY, append = true)
+    @Parameter(key = INVOKER_LISTENER_KEY, append = true)
     public String getListener() {
         return listener;
     }
@@ -853,7 +866,7 @@ public abstract class AbstractInterfaceConfig extends AbstractMethodConfig {
         this.metrics = metrics;
     }
 
-    @Parameter(key = Constants.TAG_KEY, useKeyAsProperty = false)
+    @Parameter(key = TAG_KEY, useKeyAsProperty = false)
     public String getTag() {
         return tag;
     }
