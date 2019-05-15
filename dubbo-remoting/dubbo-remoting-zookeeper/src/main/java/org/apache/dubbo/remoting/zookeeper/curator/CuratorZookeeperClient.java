@@ -57,10 +57,12 @@ public class CuratorZookeeperClient extends AbstractZookeeperClient<CuratorZooke
         super(url);
         try {
             int timeout = url.getParameter(Constants.TIMEOUT_KEY, 5000);
+            int sessionTimeout=url.getParameter(Constants.SESSION_TIMEOUT_KEY,2000);
             CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder()
                     .connectString(url.getBackupAddress())
                     .retryPolicy(new RetryNTimes(1, 1000))
-                    .connectionTimeoutMs(timeout);
+                    .connectionTimeoutMs(timeout)
+                    .sessionTimeoutMs(sessionTimeout);
             String authority = url.getAuthority();
             if (authority != null && authority.length() > 0) {
                 builder = builder.authorization("digest", authority.getBytes());

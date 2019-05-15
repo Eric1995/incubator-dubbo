@@ -138,6 +138,9 @@ public abstract class AbstractZookeeperTransporter implements ZookeeperTransport
         if (url.getParameter(Constants.TIMEOUT_KEY) != null) {
             parameterMap.put(Constants.TIMEOUT_KEY, url.getParameter(Constants.TIMEOUT_KEY));
         }
+        if (url.getParameter(Constants.SESSION_TIMEOUT_KEY) != null) {
+            parameterMap.put(Constants.SESSION_TIMEOUT_KEY, url.getParameter(Constants.SESSION_TIMEOUT_KEY));
+        }
         if (url.getParameter(Constants.BACKUP_KEY) != null) {
             parameterMap.put(Constants.BACKUP_KEY, url.getParameter(Constants.BACKUP_KEY));
         }
