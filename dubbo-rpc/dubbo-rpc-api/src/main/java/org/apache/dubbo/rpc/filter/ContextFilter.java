@@ -78,9 +78,9 @@ public class ContextFilter implements Filter {
         try {
             return invoker.invoke(invocation);
         } finally {
-            // IMPORTANT! For async scenario, we must remove context from current thread, so we always create a new RpcContext for the next invoke for the same thread.
-            RpcContext.removeContext();
-            RpcContext.removeServerContext();
+//            // IMPORTANT! For async scenario, we must remove context from current thread, so we always create a new RpcContext for the next invoke for the same thread.
+//            RpcContext.removeContext();
+//            RpcContext.removeServerContext();
         }
     }
 
@@ -88,6 +88,9 @@ public class ContextFilter implements Filter {
     public Result onResponse(Result result, Invoker<?> invoker, Invocation invocation) {
         // pass attachments to result
         result.addAttachments(RpcContext.getServerContext().getAttachments());
+        // IMPORTANT! For async scenario, we must remove context from current thread, so we always create a new RpcContext for the next invoke for the same thread.
+        RpcContext.removeContext();
+        RpcContext.removeServerContext();
         return result;
     }
 }
