@@ -28,6 +28,10 @@ public class DemoServiceImpl implements DemoService {
     @Override
     public String sayHello(String name) {
         logger.info("Hello " + name + ", request from consumer: " + RpcContext.getContext().getRemoteAddress());
+        int n= (int) (Math.random()*10);
+        if(n<5){
+            RpcContext.getServerContext().setAttachment("attachment","this is an attachment message");
+        }
         return "Hello " + name + ", response from provider: " + RpcContext.getContext().getLocalAddress();
     }
 

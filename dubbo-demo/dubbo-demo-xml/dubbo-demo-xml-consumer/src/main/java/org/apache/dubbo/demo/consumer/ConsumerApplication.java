@@ -18,9 +18,12 @@ package org.apache.dubbo.demo.consumer;
 
 import org.apache.dubbo.demo.DemoService;
 
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Application {
+import java.util.Map;
+
+public class ConsumerApplication {
     /**
      * In order to make sure multicast registry works, need to specify '-Djava.net.preferIPv4Stack=true' before
      * launch the application
@@ -29,7 +32,17 @@ public class Application {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/dubbo-consumer.xml");
         context.start();
         DemoService demoService = context.getBean("demoService", DemoService.class);
-        String hello = demoService.sayHello("world");
-        System.out.println("result: " + hello);
+        while (true){
+
+            String hello = demoService.sayHello("world");
+            System.out.println("result: " + hello);
+            Map<String,String> attachments=RpcContext.getServerContext().getAttachments();
+            System.out.println("attachments: "+attachments);
+            try {
+                Thread.sleep(4000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
