@@ -123,6 +123,22 @@ public class ApplicationConfig extends AbstractConfig {
      */
     private String shutwait;
 
+    private Boolean              fluxEnabled;
+
+    private String               fluxDir;
+
+    private String               fluxMode;
+
+    private Long                 fluxInterval;
+
+    private Integer              fluxRetainCount;
+
+    private String               fluxNameServer;
+
+    private String               fluxProducerId;
+
+    private String               fluxTopic;
+
 
     public ApplicationConfig() {
     }
@@ -320,6 +336,70 @@ public class ApplicationConfig extends AbstractConfig {
     public void setShutwait(String shutwait) {
         System.setProperty(Constants.SHUTDOWN_WAIT_KEY, shutwait);
         this.shutwait = shutwait;
+    }
+
+    public Boolean isFluxenabled() {
+        return fluxEnabled;
+    }
+
+    public void setFluxenabled(Boolean fluxEnabled) {
+        this.fluxEnabled = fluxEnabled;
+    }
+
+    public String getFluxdir() {
+        return fluxDir;
+    }
+
+    public void setFluxdir(String fluxDir) {
+        this.fluxDir = fluxDir;
+    }
+
+    public String getFluxmode() {
+        return fluxMode;
+    }
+
+    public void setFluxmode(String fluxMode) {
+        this.fluxMode = fluxMode;
+    }
+
+    public Long getFluxinterval() {
+        return fluxInterval;
+    }
+
+    public void setFluxinterval(Long fluxInterval) {
+        this.fluxInterval = fluxInterval;
+    }
+
+    public Integer getFluxretaincount() {
+        return fluxRetainCount;
+    }
+
+    public void setFluxretaincount(Integer fluxRetainCount) {
+        this.fluxRetainCount = fluxRetainCount;
+    }
+
+    public String getFluxnameserver() {
+        return fluxNameServer;
+    }
+
+    public void setFluxnameserver(String fluxNameServer) {
+        this.fluxNameServer = fluxNameServer;
+    }
+
+    public String getFluxproducerid() {
+        return fluxProducerId;
+    }
+
+    public void setFluxproducerid(String fluxProducerId) {
+        this.fluxProducerId = fluxProducerId;
+    }
+
+    public String getFluxtopic() {
+        return fluxTopic;
+    }
+
+    public void setFluxtopic(String fluxTopic) {
+        this.fluxTopic = fluxTopic;
     }
 
     @Override

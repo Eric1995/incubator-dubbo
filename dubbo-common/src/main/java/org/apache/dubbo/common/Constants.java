@@ -405,6 +405,12 @@ public class Constants {
 
     public static final String INTERFACES = "interfaces";
 
+    public static final String SERVICE_INTERFACE_KEY = "serviceInterface";
+
+    public static final String SERVICE_GROUP_KEY = "serviceGroup";
+
+    public static final String SERVICE_VERSION_KEY = "serviceVersion";
+
     public static final String GENERIC_KEY = "generic";
 
     public static final String FILE_KEY = "file";
@@ -852,5 +858,102 @@ public class Constants {
     public static final String DUBBO_GROUP = "dubbo";
     public static final String METRICS_KEY = "metrics";
 
+    // 流量统计
+    public static final String FLUX_STAT_ENABLED_KEY = "fluxenabled";
+
+    public static final String FLUX_STAT_DIR_KEY = "fluxdir";
+
+    public static final String FLUX_STAT_INTERVAL_KEY = "fluxinterval";
+
+    public static final String FLUX_STAT_MODE_KEY = "fluxmode";
+
+    public static final String FLUX_STAT_RETAIN_COUNT_KEY = "fluxretaincount";
+
+    public static final int FLUX_STAT_DEFAULT_RETAIN_COUNT = 7;
+
+    public static final long FLUX_STAT_DEFAULT_INTERVAL = 60000;
+
+    public static final String FLUX_STAT_DEFAULT_MODE = "file";
+
+    public static final String OUTDATED_FLUX_STAT_ENABLED_KEY = "dubbo.fluxstat.enabled";
+
+    public static final String OUTDATED_FLUX_STAT_MODE_KEY = "dubbo.fluxstat.mode";
+
+    public static final String OUTDATED_FLUX_STAT_DIR_KEY = "dubbo.fluxstat.directory";
+
+    public static final String OUTDATED_FLUX_STAT_INTERVAL_KEY = "dubbo.fluxstat.interval";
+
+    public static final int FLUX_STAT_FILE_NAME_MAX_CHARS = 255;
+
+    public static final String FLUX_STAT_SERVICE_KEY = "serviceKey";
+
+    public static final String FLUX_STAT_SERVICE_NAME_KEY = "service";
+
+    public static final String FLUX_STAT_APP_KEY = "app";
+
+    public static final String FLUX_STAT_TIME_KEY = "statTime";
+
+    public static final String FLUX_STAT_TOTAL_TIMES_KEY = "callTimes";
+
+    public static final String FLUX_STAT_SUCCESS_TIMES_KEY = "success";
+
+    public static final String FLUX_STAT_FAILURE_TIMES_KEY = "failure";
+
+    public static final String FLUX_STAT_TIMEOUT_TIMES_KEY = "timeout";
+
+    public static final String FLUX_STAT_REJECTION_TIMES_KEY = "rejection";
+
+    public static final String FLUX_STAT_NOPROVIDER_TIMES_KEY = "noProvider";
+
+    public static final String FLUX_STAT_OVERLOAD_TIMES_KEY = "overload";
+
+    public static final String FLUX_STAT_TOTAL_COST_KEY = "totalCost";
+
+    public static final String FLUX_STAT_MAX_COST_KEY = "maxCost";
+
+    public static final String FLUX_STAT_AVG_COST_KEY = "avgCost";
+
+    // The following properties are used when exporting stat data to ZCM.
+    public static final String CLOUD_APP_ID_ENV_VAR_KEY = "CLOUD_APP_ID";
+
+    public static final String FLUX_STAT_VERSION_KEY = "version";
+
+    public static final String FLUX_STAT_ZCM_DEFAULT_INDEX_NAME = "zdubbo_flux_stat";
+
+    public static final String FLUX_STAT_ZCM_DEFAULT_EVENT_TYPE = "com.zsmart.zcm.app.kpi.v2";
+
+    public static final String FLUX_STAT_ZCM_DEFAULT_TOPIC = "com_ztesoft_zcm_app_kpi";
+
+    public static final String FLUX_STAT_ZCM_NAME_SERVER_ADDR_KEY = "fluxnameserver";
+
+    public static final String FLUX_STAT_ZCM_PRODUCER_ID_KEY = "fluxproducerid";
+
+    public static final String FLUX_STAT_ZCM_TOPIC_KEY = "fluxtopic";
+
+    public static final String FLUX_STAT_ZCM_EVENT_TYPE_KEY = "event_type";
+
+    public static final String FLUX_STAT_ZCM_EVENT_TIME_KEY = "event_time";
+
+    public static final String FLUX_STAT_ZCM_CLOUD_APP_ID_KEY = "cloud_app_id";
+
+    public static final String FLUX_STAT_ZCM_CLOUD_NODE_ID_KEY = "cloud_node_id";
+
+    public static final String FLUX_STAT_ZCM_CONTAINER_ID_KEY = "container_id";
+
+    public static final String FLUX_STAT_ZCM_EVENT_KEY = "event";
+
+    public static final String FLUX_STAT_ZCM_TIME_KEY = "time";
+
+    public static final String FLUX_STAT_ZCM_INDEX_NAME_KEY = "index_name";
+
+    public static final String FLUX_STAT_ZCM_TAG_NAME_KEY = "tag_name";
+
+    public static final String FLUX_STAT_ZCM_TAG_VALUE_KEY = "value";
+
+    public static final String FLUX_STAT_ZCM_TPS_KEY = "tps";
+
+    public static final String FLUX_STAT_ZCM_SUCCESS_RATE_KEY = "successRate";
+
+    public static final String FLUX_STAT_ZCM_EXT_TAGS_KEY = "ext_tags";
 
 }

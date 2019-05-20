@@ -31,5 +31,6 @@
     <modules>
         <module>dubbo-filter-cache</module>
         <module>dubbo-filter-validation</module>
+        <module>dubbo-filter-flux</module>
     </modules>
 </project>
