@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Apache Dubbo (incubating) Project
 
 [![Build Status](https://travis-ci.org/apache/incubator-dubbo.svg?branch=master)](https://travis-ci.org/apache/incubator-dubbo)
@@ -217,3 +218,7 @@ Please report security vulnerability to [us](mailto:security@dubbo.incubator.apa
 ## License
 
 Apache Dubbo is under the Apache 2.0 license. See the [LICENSE](https://github.com/apache/incubator-dubbo/blob/master/LICENSE) file for details.
+=======
+# Apache Dubbo
+
+>>>>>>> d8f582b032026765b2a4787abae7bfc92211e897
